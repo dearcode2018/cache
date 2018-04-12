@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	"
+	default-lazy-init="true">
+
+	<!-- cache 多种实现方式: 本地/memcached/redies/ecache，使用一个id，生产环境使用其中一个即可 -->
+
+	<!-- 本地 cache -->
+<!-- 	<bean id="cache" class="com.hua.cache.impl.LocalCacheImpl" init-method="init">
+		<property name="autoScanSeconds" value="180"/>
+		<property name="firstKeyIsForceMd5" value="true"/>
+	</bean> -->
+
+	<!-- cache 配置 bean -->
+	<bean id="memcachedConfig" class="com.hua.bean.MemcachedConfig">
+		<property name="servers" value="${cache.memcached.servers}" />
+		<property name="weights" value="${cache.memcached.wights}">
+		</property>
+		<property name="failback" value="${cache.memcached.failback}" />
+		<property name="failover" value="${cache.memcached.failover}" />
+		<property name="nagle" value="${cache.memcached.nagle}" />
+		<property name="aliveCheck" value="${cache.memcached.aliveCheck}" />
+		<property name="initConn" value="${cache.memcached.initConnect}" />
+		<property name="minConn" value="${cache.memcached.minConnect}" />
+		<property name="maxConn" value="${cache.memcached.maxConnect}" />
+		<property name="maxIdle" value="${cache.memcached.maxIdle}" />
+		<property name="maintSleep" value="${cache.memcached.mainThreadSleep}" />
+		<property name="socketTO" value="${cache.memcached.socketTimeOut}" />
+	</bean>
+
+	<!-- memcached -->
+ 	<bean id="cache" class="com.hua.cache.impl.MemcachedCacheImpl" init-method="init">
+		<property name="firstKeyIsForceMd5" value="true"/>
+		<property name="memcachedConfig" ref="memcachedConfig" />
+	</bean>
+
+
+
+
+</beans>

@@ -1,0 +1,34 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.hua</groupId>
+		<artifactId>cache-entire</artifactId>
+		<version>0.0.1</version>
+	</parent>	
+	<artifactId>memcached-spring</artifactId>
+	<packaging>jar</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<cache.version>0.0.1</cache.version>
+		<cache.spring.version>0.0.1</cache.spring.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.hua</groupId>
+			<artifactId>memcached</artifactId>
+			<version>${cache.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.hua</groupId>
+			<artifactId>cache-spring</artifactId>
+			<version>${cache.spring.version}</version>
+		</dependency>
+		
+	</dependencies>
+
+</project>

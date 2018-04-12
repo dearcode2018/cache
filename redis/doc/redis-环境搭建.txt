@@ -1,0 +1,36 @@
+redis-环境搭建
+
+下载地址：https://github.com/dmajkic/redis/downloads 
+
+启动redis服务端
+ redis-server redis.conf
+
+启动redis客户端 (在另外一个 cmd 窗口)
+redis-cli -h 127.0.0.1 -p 6379
+
+常用命令(客户端)
+获取 redis 主目录
+config get dir
+
+备份
+bgsave
+
+设置密码: config set requirepass "密码"
+
+获取密码: config get requirepass
+
+获取客户端最大数量值: config get maxclients
+
+
+
+
+
+
+
+
+
+
+
+
+
+

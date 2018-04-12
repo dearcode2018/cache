@@ -1,0 +1,68 @@
+guava cache
+
+guava cache 是一个全内存的本地缓存实现，提供了线程安全的机制。
+简单、性能好.
+
+1) guava cache 创建方式
+cacheloader
+callable callback
+相同点:
+这2种方式都实现了从缓存中根据key获取值，若存在则返回，若没有缓存该值，可以
+通过某个方法来获取这个值.
+
+不同点:
+cacheloader的定义比较宽泛，是针对整个cache定义的，可以认为是统一的根据key值
+load value的方法，而callable的方式则比较灵活，允许在调用get方法的时候指定.
+
+2) 数据移除
+主动移除、被动移除
+被动移除: 
+A. 基于大小的移: 即将到达指定的大小，就会把不常用的键值对从cache移除，
+maximumSize() - cache中的条目数；不是达到而是接近这个值是就开始移除.
+B. 基于时间的移除: expireAfterAccess()- 最后一次访问 expireAfterWrite() - 创建/替换时间
+C. 基于引用的移除: 基于javaGC机制
+
+主动移除
+A. 单独移除: invalidate(key)
+B. 批量移除: invalidateAll(keys)
+C. 移除所有: invalidateAll()
+
+如果在移除的时候有所动作，可以定义Removal Listener，Removal Listener和移除
+动作是同步的，若要改成异步，
+则使用RemovalListeners.asynchronous(RemovalListener, Executor)
+
+3) 
+
+4)
+
+5)
+
+6)
+
+7)
+
+8)参考资料
+http://www.cnblogs.com/peida/p/Guava_Cache.html
+
+9)
+
+10)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

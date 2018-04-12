@@ -1,0 +1,322 @@
+redis 命令
+
+键 - 命令
+1) DEL 删除
+DEL <key1 key2 ...1> 删除一个或多个key，返回删除key的数量.
+DEL 删除单个列表、集合、有序集合、哈希类型的key，时间复杂度为O(M) M为元素数量.
+
+2) DUMP 序列化
+DUMP key 序列化给定的key，并返回被序列化的值，若key不存在则返回nil.
+序列化值: 带有64位的校验和，用于检测错误，RESTORE在反序列化之前会先检查校验和.
+序列化值不包含任何生存时间信息.
+
+3) RESTORE 反序列化
+RESTORE key ttl serialized-value [REPLACE]
+反序列化给定的序列化值，并将它和给定的key关联.
+参数ttl以毫秒为单位为key设置生存时间，如果ttl为0，则不设置生存时间.
+若key已经存在，并且给定REPLACE选项，则使用反序列化得出的新值代替键key原有的值; 若key
+已经存在，但没有给REPLACE选项，则会返回一个错误.
+
+4) EXISTS 存在判断
+EXISTS key 指定的key是否存在，存在则返回1，否则返回0.
+
+5) EXPIRE 设置生存时间
+EXPIRE key seconds 给指定的key设置生存时间，当key过期时(ttl 为0) 则被自动删除.
+在Redis中，带有生成时间的key被称为易失的(volatile)
+生存时间可以使用DEL命令来删除整个key来移除，或者被SET或GETSET命令覆写，这意味着若一个命令
+只是修改一个带生存时间的key的值而不是用一个新的key值来代替它的话，那么生存时间不会被改变.
+替换key所对应的值(会变更TTL)，修改key所对应的值(不会变更TTL)
+设置成功返回1，否则返回0.
+
+6) EXPIREAT 设置生存时间
+与EXPIRE不同的是，EXPIREAT接收的时间参数是UNIX时间戳.
+EXPIREAT key 时间戳(1355292000 以秒为单位)
+设置成功返回1，否则返回0.
+
+7) PEXPIRE
+PEXPIRE key milliseconds 
+和EXPIRE一样，只是时间单位不同.
+
+8) PEXPIREAT 设置生存时间
+与PEXPIRE不同的是，EXPIREAT接收的时间参数是UNIX时间戳.
+EXPIREAT key 时间戳(1355292000000 以毫秒为单位)
+设置成功返回1，否则返回0.
+
+10) KEYS 查找key
+KEYS pattern 查找所有符合给定模式的pattern的key.
+pattern 正则表达式
+
+11) MIGRATE 迁移
+MIGRATE 	host port key destination-db timeout(毫秒 2个实例的最大传送时间) [COPY 不删除源实例上的key] [REPLACE]
+将key原子性的从当前实例传送到目标实例的指定数据库上，一旦传送成功，key保证会出现在目标实例上，
+而当前实例上的key会被删除.
+这个命令是一个原子操作，它在执行的时候会阻塞进行迁移的2个实例，直到一下任意结果发生: 迁移成功、
+迁移失败、超时.
+MIGRATE内部实现: 对当前实例给定的key执行DUMP命令，将它序列化，然后传送到目标实例，目标实例再使用
+RESTORE对数据进行反序列化，并将反序列化得到的数据添加到数据库中；当前实例就像目标的客户端那样，只要
+看到RESTORE命令返回ok，则会调用DEL删除自己数据库上的key.
+
+12) MOVE 迁移
+MOVE key targetDb 将当前数据库的key移动到给定的数据库.
+若源数据库(当前数据库)和目标数据库有相同名称的给定key，或key不存在于源数据库中，则MOVE没有任何效果.
+移动成功返回 1 ，失败则返回 0
+
+15) OBJECT 查看对象
+OBJECT subcommand [arguments [arguments]]
+从内部查看给定key的Redis对象，通常用在出错(debugging)或为了节省空间而对key使用特殊编码的情况.
+
+OBJECT REFCOUNT key 引用数量
+OBJECT IDLETIME key 空闲时间
+OBJECT ENCODING key 编码格式
+
+17) PERSIST 持久化
+PERSIST key 移除给定key的生存时间，将这个key从易失(带生存时间)转换成持久化(不带生存时间、用不过期的key)
+移动成功返回 1 ，失败则返回 0
+
+19) TTL 查看存活时间
+TTL key 返回以 秒 为单位的剩余生存时间.
+返回值: -2(key不存在)，-1(key存在但不设置生存时间) , 以秒单位的返回值.
+
+19) PTTL 查看存活时间
+TTL key 返回以 毫秒 为单位的剩余生存时间.
+返回值: -2(key不存在)，-1(key存在但不设置生存时间) , 以毫秒单位的返回值.
+
+21) RANDOMKEY 随机获取一个key
+RANDOMKEY 从当前实例随机返回(不删除)一个key
+
+22) RENAME 重命名
+RENAME oldkey newkey 当oldkey和newkey同名或oldkey不存在时，返回一个错误.
+当newkey已经存在，该命令将会覆盖旧值.
+
+23) RENAMEX 重命名
+RENAMEX oldkey newkey 当oldkey和newkey同名或oldkey不存在时，返回一个错误.
+只有当newkey不存在时，才将oldkey重命名为newkey
+
+25) SORT 排序
+SORT key [BY pattern] [LIMIT offset count] [GET pattern...] [ASC | DESC] [ALPHA - 字符串排序] [STORE destination 将排序结果存起来]
+返回或保存给定列表、集合、有序集合key中经过排序的元素.
+排序默认以数字作为对象，值被解析为双精度浮点数，然后进行比较.
+使用: SORT key ASC | DESC
+
+27) TYPE 查看类型
+TYPE key 返回key所存储的值的类型
+返回值
+none: key不存在
+string: 字符串
+list: 列表
+set: 集合
+zset: 有序集合
+hash: 哈希表
+
+28) SCAN 迭代
+SCAN: 迭代当前数据库中的数据库键
+SSCAN: 迭代集合键中的元素
+HSCAN: 迭代哈希键中的键值对
+ZSCAN: 迭代有序集合中的元素
+
+字符串 - 命令
+30) APPEND 追加值
+APPEND key value 若key已经存在且是一个字符串，则追加value到原来值的后面
+若key不存在，则简单将key设立为value.
+返回值: 追加value之后，key中字符串的长度
+
+31) BITCOUNT 比特总数
+BITCOUNT key [start] [end] 计算给定的字符串中，被设置为1的比特位的数量
+一般情况下，给定的整个字符串都会被进行计数，通过额外的start或end参数，可以指定计数范围.
+start / end 也可以用负数，例如 -1 表示倒数第一个字节，-2表示倒数第二个字节.
+不存在的key当作空字符串处理，操作结果为0.
+
+32) BITOP (Bit Operation 位操作)
+BITOP operation destkey key [key ...] 对一个或多个保存二进制位的字符串key进行位元，并将结果保存到destkey上.
+operation 可以是 AND OR NOT XOR(异或)
+BITOP AND destkey key1 key2 ...
+BITOP OR destkey key1 key2 ...
+BITOP NOT destkey key (NOT操作只能一个key，执行逻辑非)
+
+33) DECR 自减
+DECR key 将key中存储的数值减1
+若key不存在，则key会先被初始化为0，然后再减1
+若值中含有错误的类型，或字符串类型的值不能表示为数字，则返回一个错误.
+
+DECRBY 指定自减值
+DECRBY key descrement
+
+34) INCR 自增
+INCR key 将key中存储的数值增1
+若key不存在，则key会先被初始化为0，然后再增1
+若值中含有错误的类型，或字符串类型的值不能表示为数字，则返回一个错误.
+
+INCRBY 指定自增值
+INCRBY key increment
+
+36) SET 设置值
+SET key value [EX seconds] [PX milliseconds] [NX | XX]
+将字符串值value关联到key，若key已经持有其他值，SET就覆写旧值，无视类型.
+对于某个原本带有生存时间(TTL Time To Live)的key来说，当SET命令成功在该key上执行时，这个key原有的TTL
+将被清除.
+SET key value EX seconds 等同于 SETEX key second value
+SET key value PX milliseconds 等同于 PSETEX key milliseconds value
+NX (no exists) 参数: 只有在键不存在时，才对键进行设置操作. SET key value NX 等同于 SETNX key value
+XX (exists) 参数: 只有键已经存在，才对键进行设置.
+提示: 将来Redis会废弃其他SETxx命令，而直接用SET命令来统一操作.
+
+31) SETBIT
+SETBIT key offset value 对key所存储的字符串值，设置或清除指定偏移量上的位(BIT)
+位的设置或清除取决于value参数，value可以是 0 或 1，若key不存在则自动生成新的字符串.
+字符串会进行伸展以确保它可以将value保存在指定的偏移量上，当字符串进行扩展时，空白位置用0填充.
+
+32) SETRANGE  (类似 java.lang.String.replace()方法)
+SETRANGE key offset value
+用value参数覆盖给定key所存储的字符串值，从偏移量offset开始.
+若key所存储的字符串长度比偏移量小，那么原字符和偏移量之间的空白将用零字节(zerobytes \x00) 来填充.
+
+33) MSET 设置多个键值对
+MSET key value [key value ...] 同时设置多个键值对
+已经存在的值会被覆盖
+
+34) MSETNX 设置多个键值对
+MSETNX key value [key value ...] 同时设置多个键值对
+已经存在的值则不会被覆盖
+
+PSETEX
+
+35) GET 获取值
+GET key 返回key所关联的字符串值，若key不存在则返回nil1.
+若key存储的值不是字符串类型，则返回一个错误，因为GET只能用于处理字符串值.
+
+36) GETBIT 获取位
+GETBIT key offset 获取指定偏移量上的位
+当offset比字符串值长度大或key不存在时，返回0.
+
+37) GETRANGE 获取字串
+GETRANGE key start(包括 支持负数) end(包括 支持负数) 返回key中字符串值的子串
+
+38) GETSET 设置并返回值
+GETSET key value 将给定的key的值设置为value，并返回key的旧值.
+若key存在但不是字符串类型，则返回一个错误，没有旧值则返回nil.
+
+39) MGET 获取多个key的值
+MGET key [key ...]，若其中某个key不存在 则返回nil，该命令永远不失败.
+
+40) MSET
+
+45) INCRBYFLOAT
+INCRBYFLOAT key increment 为key中的值加上浮点数增量 increment
+无论是 key 的值，还是增量 increment ，都可以使用像 2.0e7 、 3e5 、 90e-2 那样的指数符号(exponential notation)来表示
+
+
+46) STRLEN
+STRLEN key 返回key存储的字符串的长度，若key存储的不是字符串，则返回一个错误.
+
+41)
+
+
+列表 - 命令
+60) BLPOP
+BLPOP key [key ...] timeout(毫秒) 列表阻塞式弹出原语.
+LPOP命令的阻塞版本.
+
+61) BRPOP
+BRPOP key [key ...] timeout 当给定列表内没有任何元素可供弹出时，连接将被BRPOP命令阻塞，直到
+等待操作时或发现可弹出元素为止.
+
+62) BRPOPPUSH
+BRPOPPUSH source destination timeout 
+
+64) LINDEX 获取元素
+LINDEX key index 返回列表中下标为index的元素
+若key不是列表类型，则返回一个错误.
+
+65) LINSERT 插入元素
+LINSERT key BEFORE | AFTER pivot value 将值插入到列表中，值位于pivot之前或之后，
+当pivot不存在列表时，不执行任何操作.
+
+66) LLEN
+LLEN key 返回列表的长度
+
+67) LPOP
+LPOP key 移除并返回列表的头元素
+当key不存在时，返回nil.
+
+68) LPUSH
+LPUSH key value [value ...] 将多个值插入列表的表头
+key 不存在，一个空列表会被创建并执行 LPUSH 操作。
+
+69) LPUSHX
+LPUSHX key value [value ...] 将多个值插入列表的表头
+当 key 不存在时， LPUSHX 命令什么也不做。
+
+70) LRANGE
+LRANGE key start(包含) end(包含) 返回列表某个区间的元素
+
+71) LREM
+LREM key count value 根据参数count的值，移除列表中与参数value相等的元素.
+count > 0 : 从表头开始搜索，数量为count
+count < 0 : 从表尾开始搜索，数量为count的绝对值
+count = 0 : 移除所有与value相等的值
+
+72) LSET 设置某个值
+LSET key index value 将列表中指定索引的元素设置为value
+
+73) LTRIM 剪除
+LTRIM key start end 对列表进行trim，让列表只保留区间内的元素.
+
+77) SINTER 交集
+SINTER key [key ...]
+返回一个集合的全部成员，该集合是所有给定集合的交集.
+
+78) SINTERSTORE
+SINTERSTORE destination key [key ...]
+该命令类似于SINTER，但它把结果保存到destination集合，而不是简单返回结果集.
+
+
+set集合 - 命令
+90) SADD 添加元素
+SADD key member [member ...]
+
+91) SCARD
+SCARD key 返回集合key中元素的数量
+当key不存在时返回0
+92) SDIFF
+SDIFF key [key ...] 返回指定多个集合的差集
+
+93) SDIFFSTORE 
+SDIFFSTORE destination key [key ...] 将返回指定多个集合的差集存到一个指定集合
+
+94) SINTER
+SINTER key [key ...] 返回指定多个集合的交集
+
+95) SINTERSTORE
+SINTERSTORE destination key [key ...] 将返回指定多个集合的交集存到一个指定集合
+
+96) SISMEMBER
+SISMEMBER key member 判断某个元素是否存在集合中
+存在返回1，否则返回0
+
+97) SMEMBERS
+SMEMBERS key 返回集合中的所有元素
+
+98) SMOVE
+SMOVE source destination member 将某个元素从一个集合移动到另一个集合
+
+99) SPOP
+SPOP key 移除并返回集合中一个随机的元素
+
+100) SRANDMEMBER
+SRANDMEMBER key [count] 
+
+101) SREM
+SREM key member [member ...] 移除集合中一个或多个元素
+
+102) SUNION
+SUNION key [key ...] 返回多个集合的并集
+
+103) SUNIONSTORE
+SUNIONSTORE destionation key [key ...]
+
+104) 
+
+
+
+
+
