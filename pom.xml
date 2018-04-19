@@ -12,7 +12,9 @@
 		<!-- 模板 -->
 		<module>cache-template</module>		
 		<module>cache</module>		
-		<module>cache-spring</module>		
+		<module>cache-spring</module>
+		<module>ehcache</module>		
+		<module>ehcache3_0_0_Alpha</module>
 		<module>ehcache-spring</module>		
 		<module>guava-cache</module>		
 		<module>memcached</module>		
