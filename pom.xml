@@ -13,6 +13,7 @@
 		<module>cache-template</module>		
 		<module>cache</module>		
 		<module>cache-spring</module>
+		<module>codis</module>
 		<module>ehcache</module>		
 		<module>ehcache3_0_0_Alpha</module>
 		<module>ehcache-spring</module>		
