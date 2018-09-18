@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.hua</groupId>
+		<artifactId>cache-entire</artifactId>
+		<version>0.0.1</version>
+	</parent>	
+	<artifactId>redis-anno</artifactId>
+	<name>redis-anno</name>
+	<packaging>jar</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<com.hua.redis.version>0.0.1</com.hua.redis.version>
+		<cache.spring.version>0.0.1</cache.spring.version>
+		<spring.redis.version>2.0.10.RELEASE</spring.redis.version>
+		<!-- redis 2.7.2 和 spring-data-redis 1.5.0 结合有问题，使用2.6.2就可以 -->
+		<redis.version>2.9.0</redis.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.hua</groupId>
+			<artifactId>redis</artifactId>
+			<version>${com.hua.redis.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.hua</groupId>
+			<artifactId>cache-spring</artifactId>
+			<version>${cache.spring.version}</version>
+		</dependency>	
+		
+		<!-- cache: redis -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>${redis.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>${spring.redis.version}</version>
+		</dependency>	
+		
+	</dependencies>
+</project>

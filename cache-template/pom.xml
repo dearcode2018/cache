@@ -7,6 +7,7 @@
 		<version>0.0.1</version>
 	</parent>	
 	<artifactId>cache-template</artifactId>
+	<name>cache-template</name>
 	<packaging>jar</packaging>
 
 	<properties>

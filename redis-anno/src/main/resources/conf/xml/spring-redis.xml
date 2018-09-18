@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/cache	http://www.springframework.org/schema/cache/spring-cache-4.0.xsd
+	" default-lazy-init="true">
+
+	<!-- spring 缓存管理器 -->
+<!-- 	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+		cache 集合
+		<property name="caches">
+			<set>
+				<bean id="default" class="org.springframework.cache.concurrent.ConcurrentCacheFactoryBean" />
+				<bean id="andCache" class="org.springframework.cache.concurrent.ConcurrentCacheFactoryBean" />
+			</set>
+		</property>
+	</bean> -->
+	 
+<!-- 注册缓存 
+  	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+	  <property name="caches">
+	    <set>
+	       <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" name="navigation_cache"/>
+	       <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" name="querys"/>
+	    </set> 
+	  </property> 
+	</bean>
+	-->
+	<!-- 缓存池配置 -->
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="testWhileIdle" value="true" />
+		<property name="minIdle" value="${redis.minIdle}" />
+		<property name="maxIdle" value="${redis.maxIdle}" />	
+		<property name="maxTotal" value="${redis.maxTotal}" /> 
+		<property name="maxWaitMillis" value="${redis.maxWaitMillis}" /> 
+		<property name="testOnBorrow" value="true" />
+		<property name="testOnReturn" value="true" />
+	</bean>
+		
+	<!-- redis 配置 -->
+	<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" >
+	    <property name="usePool" value="true" />
+        <property name="hostName" value="${redis.host}" />
+        <property name="port" value="${redis.port}" />
+        <property name="password" value="${redis.pass}" />
+        <property name="timeout" value="${redis.timeout}" />
+        <property name="database" value="${redis.default.db}"/>
+        <!-- <constructor-arg index="0" ref="jedisPoolConfig" /> -->
+        <property name="poolConfig" ref="jedisPoolConfig" />
+	</bean>
+	
+	<!-- 字符串 Redis 模版 -->
+	<bean id="stringRedisTemplate" 
+		class="org.springframework.data.redis.core.StringRedisTemplate">
+		<property name="connectionFactory" ref="jedisConnectionFactory" />
+	</bean>
+	
+	<!-- dao -->
+	<bean id="userDao" class="com.hua.dao.impl.UserDaoImpl" />
+	
+</beans>
