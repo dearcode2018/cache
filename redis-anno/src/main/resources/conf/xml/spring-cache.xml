@@ -11,17 +11,5 @@
 
 	<!-- 缓存注解 -->
 	<cache:annotation-driven />
-	
-	<!-- spring 缓存管理器 -->
-	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
-		<!-- cache 集合 -->
-		<property name="caches">
-			<set>
-				<bean id="default" class="org.springframework.cache.concurrent.ConcurrentCacheFactoryBean" />
-				<bean id="andCache" class="org.springframework.cache.concurrent.ConcurrentCacheFactoryBean" />
-			</set>
-		</property>
-	</bean>
-	 
-	
+	<context:component-scan base-package="com.hua" />
 </beans>
