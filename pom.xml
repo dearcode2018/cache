@@ -26,7 +26,8 @@
 		<module>redis-anno</module>
 		<module>redis-client</module>				
 		<module>redis-spring</module>	
-		<module>redis2</module>				
+		<module>redis2</module>	
+		<module>redis-admin</module>			
 	</modules>
  
 	<!-- 公共属性 -->
