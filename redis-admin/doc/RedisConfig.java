@@ -9,8 +9,7 @@ import java.util.Properties;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.springframework.context.annotation.Configuration;
-
+import com.hua.util.ReadProperties;
 import com.mauersu.exception.RedisInitException;
 
 public class RedisConfig {
@@ -22,6 +21,11 @@ public class RedisConfig {
 	/*@Bean(name="redisProperties")*/
 	//not-in-use now
 	public Properties propertiesConfig() {
+		
+		ReadProperties props = new ReadProperties("/redis.properties");
+		
+		System.out.println("value = " + props.getProperty("redis.name.1"));
+		
 		Properties prop = new Properties();
 		File file = new File(DEFAULT_REDIS_PROPERTIES_FILEPATH);
 		InputStream is = null;

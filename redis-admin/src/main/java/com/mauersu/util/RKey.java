@@ -2,7 +2,7 @@ package com.mauersu.util;
 
 import org.springframework.data.redis.connection.DataType;
 
-public class RKey implements Comparable {
+public class RKey implements Comparable<RKey> {
 	
 	private String key;
 	private DataType type;
@@ -24,17 +24,25 @@ public class RKey implements Comparable {
 		this.type = type;
 	}
 	
+	/**
+	 * 
+	 * @description 
+	 * @param o
+	 * @return
+	 * @author qianye.zheng
+	 */
 	@Override
-	public int compareTo(Object o) {
+	public int compareTo(RKey o) {
 		if(o == null) return 1;
 		if(o instanceof RKey) {
 			RKey rko = (RKey) o;
 			return this.getKey().compareTo(rko.getKey());
 		}
-		if(o instanceof String) {
+/*		if(o instanceof String) {
 			String so = (String) o;
 			return this.getKey().compareTo(so);
-		}
+		}*/
+		
 		return 1;
 	}
 	@Override

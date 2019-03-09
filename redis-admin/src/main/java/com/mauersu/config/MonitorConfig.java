@@ -21,6 +21,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 
+import com.mauersu.util.Constant;
+
 /**
  * MonitorConfig
  *
@@ -29,6 +31,10 @@ import org.springframework.context.annotation.PropertySources;
 @Configuration
 @ComponentScan(basePackages = {"com.mauersu.controller", "com.mauersu"})
 @Import({WebConfig.class, Security.class})
-@PropertySources({@PropertySource("classpath:/application.properties"), @PropertySource("classpath:/redis.properties")})
+/* 指定配置文件编码，避免中文乱码 */
+@PropertySources({
+	@PropertySource(value = "classpath:/application.properties", encoding = Constant.UTF_8), 
+	@PropertySource(value = "classpath:/redis.properties", encoding = Constant.UTF_8)
+	})
 public class MonitorConfig {
 }

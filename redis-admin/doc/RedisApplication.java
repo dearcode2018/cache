@@ -12,7 +12,6 @@ import java.util.concurrent.Semaphore;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisConnectionUtils;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -115,16 +114,13 @@ public abstract class RedisApplication implements Constant{
 	}*/
 	
 	protected void createRedisConnection(String name, String host, int port, String password) {
-		final RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
-		configuration.setHostName(host);
-		configuration.setPort(port);
+		JedisConnectionFactory connectionFactory = new JedisConnectionFactory();
+		connectionFactory.setHostName(host);
+		connectionFactory.setPort(port);
 		if(!StringUtils.isEmpty(password))
-		{
-			configuration.setPassword(password);
-		}
-		JedisConnectionFactory connectionFactory = new JedisConnectionFactory(configuration);
+			connectionFactory.setPassword(password);
 		connectionFactory.afterPropertiesSet();
-		final RedisTemplate redisTemplate = new MyStringRedisTemplate();
+		RedisTemplate redisTemplate = new MyStringRedisTemplate();
 		redisTemplate.setConnectionFactory(connectionFactory);
 		redisTemplate.afterPropertiesSet();
 		RedisApplication.redisTemplatesMap.put(name, redisTemplate);
@@ -141,14 +137,14 @@ public abstract class RedisApplication implements Constant{
 		RedisZtreeUtil.initRedisNavigateZtree(name);
 	}
 	
-	private void initRedisKeysCache(RedisTemplate<String, Object> redisTemplate, String name) {
+	private void initRedisKeysCache(RedisTemplate redisTemplate, String name) {
 		for(int i=0;i<=REDIS_DEFAULT_DB_SIZE;i++) {
 			initRedisKeysCache(redisTemplate, name, i);
 		}
 	}
 	
 	
-	protected void initRedisKeysCache(RedisTemplate<String, Object> redisTemplate, String serverName , int dbIndex) {
+	protected void initRedisKeysCache(RedisTemplate redisTemplate, String serverName , int dbIndex) {
 		RedisConnection connection = RedisConnectionUtils.getConnection(redisTemplate.getConnectionFactory());
 		connection.select(dbIndex);
 		Set<byte[]> keysSet = connection.keys("*".getBytes());
