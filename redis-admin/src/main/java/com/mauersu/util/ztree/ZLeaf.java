@@ -1,6 +1,6 @@
 package com.mauersu.util.ztree;
 
-public class ZLeaf implements Comparable {
+public class ZLeaf implements Comparable<ZLeaf> {
 	
 	protected String name;
 	
@@ -24,15 +24,19 @@ public class ZLeaf implements Comparable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	/**
+	 * 
+	 * @description 
+	 * @param o
+	 * @return
+	 * @author qianye.zheng
+	 */
 	@Override
-	public int compareTo(Object o) {
+	public int compareTo(ZLeaf o) {
 		if(o == null) return 1;
 		if(o instanceof ZLeaf) {
 			ZLeaf zlo = (ZLeaf) o;
 			return this.getName().compareTo(zlo.getName());
-		}
-		if(o instanceof String) {
-			return this.getName().compareTo(o.toString());
 		}
 		ZLeaf zlo = (ZLeaf) o;
 		return this.getName().compareTo(zlo.getName());

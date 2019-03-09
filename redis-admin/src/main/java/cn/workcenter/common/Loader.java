@@ -10,7 +10,7 @@ public class Loader {
 	
 	private static Log log = LogFactory.getLog(Loader.class);
 	
-	public static Class getClass(String clazz) throws ClassNotFoundException, NoSuchMethodException, SecurityException {
+	public static Class<?> getClass(String clazz) throws ClassNotFoundException, NoSuchMethodException, SecurityException {
 		try {
 			return getTCL().loadClass(clazz);
 		} catch (ClassNotFoundException | IllegalAccessException
@@ -20,10 +20,23 @@ public class Loader {
 		return Class.forName(clazz);
 	}
 	
+	/**
+	 * 
+	 * @description 
+	 * @return
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
+	 * @throws SecurityException
+	 * @author qianye.zheng
+	 */
+	@SuppressWarnings({"all"})
 	protected static ClassLoader getTCL() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		Method method = null;
-		method = Thread.class.getMethod("getContextClassLoader", null);
-		return (ClassLoader)method.invoke(Thread.currentThread(), null);
+		method = Thread.class.getMethod("getContextClassLoader", String.class);
+		
+		return (ClassLoader) method.invoke(Thread.currentThread(), null);
 	}
 	
 }

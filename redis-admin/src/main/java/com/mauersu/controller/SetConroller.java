@@ -10,12 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.workcenter.common.response.WorkcenterResponseBodyJson;
-
-import com.mauersu.service.HashService;
 import com.mauersu.service.SetService;
 import com.mauersu.util.Constant;
 import com.mauersu.util.RedisApplication;
+
+import cn.workcenter.common.response.WorkcenterResponseBodyJson;
 
 @Controller
 @RequestMapping("/set")

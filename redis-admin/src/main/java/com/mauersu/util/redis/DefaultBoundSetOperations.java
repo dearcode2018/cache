@@ -48,7 +48,7 @@ class DefaultBoundSetOperations<K, V> extends DefaultBoundKeyOperations<K> imple
 		this.ops = operations.opsForSet();
 	}
 
-	public Long add(V... values) {
+	public Long add(@SuppressWarnings("unchecked") V... values) {
 		return ops.add(getKey(), values);
 	}
 

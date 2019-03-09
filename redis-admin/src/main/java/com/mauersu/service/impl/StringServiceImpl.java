@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mauersu.dao.RedisDao;
-import com.mauersu.service.HashService;
 import com.mauersu.service.StringService;
 
 @Service

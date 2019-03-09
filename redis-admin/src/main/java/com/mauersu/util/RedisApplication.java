@@ -124,7 +124,7 @@ public abstract class RedisApplication implements Constant{
 		}
 		JedisConnectionFactory connectionFactory = new JedisConnectionFactory(configuration);
 		connectionFactory.afterPropertiesSet();
-		final RedisTemplate redisTemplate = new MyStringRedisTemplate();
+		final RedisTemplate<String, String> redisTemplate = new MyStringRedisTemplate();
 		redisTemplate.setConnectionFactory(connectionFactory);
 		redisTemplate.afterPropertiesSet();
 		RedisApplication.redisTemplatesMap.put(name, redisTemplate);
@@ -141,14 +141,14 @@ public abstract class RedisApplication implements Constant{
 		RedisZtreeUtil.initRedisNavigateZtree(name);
 	}
 	
-	private void initRedisKeysCache(RedisTemplate<String, Object> redisTemplate, String name) {
+	private void initRedisKeysCache(RedisTemplate<String, String> redisTemplate, String name) {
 		for(int i=0;i<=REDIS_DEFAULT_DB_SIZE;i++) {
 			initRedisKeysCache(redisTemplate, name, i);
 		}
 	}
 	
 	
-	protected void initRedisKeysCache(RedisTemplate<String, Object> redisTemplate, String serverName , int dbIndex) {
+	protected void initRedisKeysCache(RedisTemplate<String, String> redisTemplate, String serverName , int dbIndex) {
 		RedisConnection connection = RedisConnectionUtils.getConnection(redisTemplate.getConnectionFactory());
 		connection.select(dbIndex);
 		Set<byte[]> keysSet = connection.keys("*".getBytes());

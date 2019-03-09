@@ -53,10 +53,10 @@ public class RValue {
 	public void setField(Object field) {
 		this.field = field;
 	}
-	public static Object creatListValue(List<Object> values) {
-		List<RValue> rValues = new ArrayList<RValue>();
-		for(Object v: values) {
-			rValues.add(new RValue(v));
+	public static List<String> creatListValue(List<String> values) {
+		List<String> rValues = new ArrayList<>();
+		for(String v: values) {
+			rValues.add(new String(v));
 		}
 		return rValues;
 	}
@@ -67,9 +67,9 @@ public class RValue {
 		}
 		return rValues;
 	}
-	public static Object creatZSetValue(Set<TypedTuple<Object>> values) {
+	public static List<RValue> creatZSetValue(Set<TypedTuple<String>> values) {
 		List<RValue> rValues = new ArrayList<RValue>();
-		for(TypedTuple<Object> v:values) {
+		for(TypedTuple<String> v : values) {
 			rValues.add(new RValue(v.getScore(), v.getValue()));
 		}
 		return rValues;

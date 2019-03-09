@@ -9,15 +9,32 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.util.StringUtils;
 
+import com.hua.constant.Constant;
+
 public class StringUtil {
-	
-	public static void main(String[] args) {
-		System.out.println(getRandom(6));
-	}
 	
 	public static boolean isEmpty(String str){
 		
 		return ("".equals(str)||str == null) ;
+	}
+	
+	/**
+	 * 
+	 * 描述: 字符串是否不为空
+	 * trim 之后""或null 
+	 * @author qye.zheng
+	 * 
+	 * @param target
+	 * @return
+	 */
+	public static final boolean isNotEmpty(final String target) {
+		// 为null 或 trim 之后为空字符串
+		if (null != target && !Constant.WHITE_SPACE.equals(target.trim())) {
+			
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public static String getRandom(int num) {

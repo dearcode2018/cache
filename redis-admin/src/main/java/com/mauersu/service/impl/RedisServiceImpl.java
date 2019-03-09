@@ -7,6 +7,7 @@ import org.springframework.data.redis.core.RedisConnectionUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import com.mauersu.bean.KeyQueryBean;
 import com.mauersu.dao.RedisDao;
 import com.mauersu.service.RedisService;
 import com.mauersu.util.RedisApplication;
@@ -49,6 +50,8 @@ public class RedisServiceImpl extends RedisApplication implements RedisService, 
 			break;
 		}
 	}
+	
+	@SuppressWarnings({"unused"})
 	@Override
 	public WorkcenterResult getKV(String serverName, int dbIndex, String dataType, String key) {
 		
@@ -76,20 +79,11 @@ public class RedisServiceImpl extends RedisApplication implements RedisService, 
 			break;
 		}
 		
-		final String dataType1 = dataType;
-		final Object values1 = values;
-		return WorkcenterResult.custom().setOK(WorkcenterCodeEnum.valueOf(OK_REDISKV_UPDATE), new Object() {
-				public String dataType;
-				public Object values;
-				{
-					dataType = dataType1;
-					values = values1;
-				}
-			}).build();
+		return WorkcenterResult.custom().setOK(WorkcenterCodeEnum.valueOf(OK_REDISKV_UPDATE), new KeyQueryBean(dataType, values)).build();
 	}
 
 	private String getDataType(String serverName, int dbIndex, String key) {
-		RedisTemplate redisTemplate = RedisApplication.redisTemplatesMap.get(serverName);
+		RedisTemplate<String, String> redisTemplate = RedisApplication.redisTemplatesMap.get(serverName);
 		RedisConnection connection = RedisConnectionUtils.getConnection(redisTemplate.getConnectionFactory());
 		connection.select(dbIndex);
 		DataType dataType = connection.type(key.getBytes());
@@ -98,7 +92,7 @@ public class RedisServiceImpl extends RedisApplication implements RedisService, 
 	}
 	
 	private Object getKV(String serverName, int dbIndex, String key) {
-		RedisTemplate redisTemplate = RedisApplication.redisTemplatesMap.get(serverName);
+		RedisTemplate<String, String> redisTemplate = RedisApplication.redisTemplatesMap.get(serverName);
 		RedisConnection connection = RedisConnectionUtils.getConnection(redisTemplate.getConnectionFactory());
 		connection.select(dbIndex);
 		DataType dataType = connection.type(key.getBytes());

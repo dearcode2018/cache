@@ -25,7 +25,7 @@ import com.mauersu.util.RedisApplication;
 
 public class MyRedisTemplate<K, V> extends RedisTemplate<K, V> {
 
-	private volatile int dbIndex;
+	//private volatile int dbIndex;
 	
 	@Override
 	public ValueOperations<K, V> opsForValue() {
@@ -120,15 +120,14 @@ public class MyRedisTemplate<K, V> extends RedisTemplate<K, V> {
 		}, true);
 	}
 	
-	private RedisSerializer keySerializer = new StringRedisSerializer();
+	private RedisSerializer<String> keySerializer = new StringRedisSerializer();
 	
-	@SuppressWarnings("unchecked")
 	private byte[] rawKey(Object key) {
 		Assert.notNull(key, "non null key required");
 		if (keySerializer == null && key instanceof byte[]) {
 			return (byte[]) key;
 		}
-		return keySerializer.serialize(key);
+		return keySerializer.serialize(key.toString());
 	}
 
 	private byte[][] rawKeys(Collection<K> keys) {

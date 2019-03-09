@@ -92,8 +92,7 @@ abstract class AbstractOperations<K, V> {
 		return template;
 	}
 
-	@SuppressWarnings("unchecked")
-	byte[] rawKey(Object key) {
+	public byte[] rawKey(Object key) {
 		Assert.notNull(key, "non null key required");
 		if (keySerializer() == null && key instanceof byte[]) {
 			return (byte[]) key;

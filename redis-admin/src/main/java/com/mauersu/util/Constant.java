@@ -9,10 +9,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import com.mauersu.util.ztree.ZNode;
 
-@SuppressWarnings("rawtypes")
 public interface Constant {
 	
-	public static final Map<String, RedisTemplate> 					redisTemplatesMap 		= 	new HashMap<String, RedisTemplate>();
+	public static final Map<String, RedisTemplate<String, String>> 					redisTemplatesMap 		= 	new HashMap<>();
 	public static final Map<String, CopyOnWriteArrayList<RKey>> 	redisKeysListMap 		= 	new HashMap<String, CopyOnWriteArrayList<RKey>>();
 	public static final Map<RKey, Object> 							redisVMCache 			= 	new ConcurrentHashMap<RKey, Object>();
 	public static final CopyOnWriteArrayList<ZNode> 				redisNavigateZtree 		= 	new CopyOnWriteArrayList<ZNode>();

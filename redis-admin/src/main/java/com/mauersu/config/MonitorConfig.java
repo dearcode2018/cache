@@ -28,13 +28,9 @@ import com.mauersu.util.Constant;
  *
  * @author Jinkai.Ma
  */
-@Configuration
-@ComponentScan(basePackages = {"com.mauersu.controller", "com.mauersu"})
-@Import({WebConfig.class, Security.class})
-/* 指定配置文件编码，避免中文乱码 */
-@PropertySources({
-	@PropertySource(value = "classpath:/application.properties", encoding = Constant.UTF_8), 
-	@PropertySource(value = "classpath:/redis.properties", encoding = Constant.UTF_8)
-	})
+//@Configuration
+//@ComponentScan(basePackages = {"com.mauersu.controller", "com.mauersu"})
+//@Import({WebConfig.class, Security.class})
+
 public class MonitorConfig {
 }

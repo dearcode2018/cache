@@ -75,6 +75,7 @@ logCurrentTime("finally {");
 		return zTree;
 	}
 	
+	@SuppressWarnings({"unused"})
 	@Override
 	public void refreshAllKeys() {
 		boolean permit = getUpdatePermition();
@@ -90,7 +91,7 @@ logCurrentTime("finally {");
 	}
 	
 	private void refreshKeys(String serverName, int dbIndex) {
-		RedisTemplate redisTemplate = RedisApplication.redisTemplatesMap.get(serverName);
+		RedisTemplate<String, String> redisTemplate = RedisApplication.redisTemplatesMap.get(serverName);
 		initRedisKeysCache(redisTemplate, serverName, dbIndex);
 	}
 

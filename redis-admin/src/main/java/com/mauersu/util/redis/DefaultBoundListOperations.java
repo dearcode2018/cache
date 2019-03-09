@@ -59,10 +59,12 @@ class DefaultBoundListOperations<K, V> extends DefaultBoundKeyOperations<K> impl
 		return ops.leftPop(getKey(), timeout, unit);
 	}
 
+	@Override
 	public Long leftPush(V value) {
 		return ops.leftPush(getKey(), value);
 	}
 
+	@Override
 	public Long leftPushAll(V... values) {
 		return ops.leftPushAll(getKey(), values);
 	}

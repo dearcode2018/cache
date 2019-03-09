@@ -46,6 +46,8 @@ class DefaultHashOperations<K, HK, HV> extends AbstractOperations<K, Object> imp
 		super((RedisTemplate<K, Object>) template);
 	}
 	private volatile int dbIndex;
+	
+	@SuppressWarnings({"unchecked"})
 	DefaultHashOperations(RedisTemplate<K, ?> template, int dbIndex) {
 		super((RedisTemplate<K, Object>) template);
 		this.dbIndex = dbIndex;
