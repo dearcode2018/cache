@@ -9,7 +9,7 @@ package com.hua.bean;
 
 import java.util.Date;
 
-import com.hua.constant.sys.UserType;
+import com.hua.constant.ext.UserType;
 
 /**
  * 描述: 
