@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hua.util.JacksonUtil;
 import com.mauersu.service.RedisService;
 import com.mauersu.service.ViewService;
 import com.mauersu.util.Constant;

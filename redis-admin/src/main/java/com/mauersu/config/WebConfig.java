@@ -38,6 +38,9 @@ public class WebConfig implements WebMvcConfigurer {
 	 */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    	/*
+    	 * 静态资源访问
+    	 */
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
         registry.addResourceHandler("/css/**").addResourceLocations("css/");
         registry.addResourceHandler("/img/**").addResourceLocations("img/");
@@ -45,17 +48,24 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/dist/**").addResourceLocations("dist/");
         registry.addResourceHandler("/bower_components/**").addResourceLocations("bower_components/");
         registry.addResourceHandler("/sb-admin/**").addResourceLocations("sb-admin/");
-        
     }
 
+    /**
+     * 
+     * @description 
+     * @return
+     * @author qianye.zheng
+     */
     @Bean
     public InternalResourceViewResolver viewResolver() {
     	
     	InternalResourceViewResolver internalResourceViewResolver = new InternalResourceViewResolver();
         internalResourceViewResolver.setOrder(1);
         internalResourceViewResolver.setContentType("text/html; charset=utf-8");
+        // 控制层 返回 相对路径时，拼接上前缀值 ( /view/ )
+        internalResourceViewResolver.setPrefix("/view/");
         internalResourceViewResolver.setSuffix(".jsp");
-        internalResourceViewResolver.setPrefix("/WEB-INF/view/");
+        
         return internalResourceViewResolver;
     }
     

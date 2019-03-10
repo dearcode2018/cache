@@ -3,12 +3,22 @@ server:
   port: 7070
  
   servlet:
-    context-path: /redis admin
- 
+    context-path: /redis-admin
+    
 spring:
   profiles:
     active:
     - dev
+  #resources:
+   # static-locations:
+   # - /view/**
+  mvc: 
+    #static-path-pattern: /view/**
+    #view:
+      #prefix: /view/
+      #suffix: .jsp
+    favicon:
+      enabled: true
 
   autoconfigure:
     exclude:
