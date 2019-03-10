@@ -4,11 +4,13 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<link rel="icon" href="${pageContext.request.contextPath}/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico" type="image/x-icon" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>redis-admin_001</title>
+<title>redis-admin</title>
 <link href="${pageContext.request.contextPath}/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet"><!-- MetisMenu CSS -->
 <link href="${pageContext.request.contextPath}/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet"><!-- Custom Fonts -->

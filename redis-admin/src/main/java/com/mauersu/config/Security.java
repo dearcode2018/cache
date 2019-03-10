@@ -59,6 +59,16 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();*/
+	   
+	   /*
+	    * 自定义登录页面
+	    * 使用了自定义登录页就无法再用Spring自带的登录逻辑了
+	    * 需要自己写一套
+	    */
+/*	   http.formLogin().loginPage("/dist/login.html")
+	   .and().authorizeRequests().antMatchers("/css/**", "/dist/login.html", "/login/**").permitAll().anyRequest()
+	   .authenticated().and().logout().permitAll();*/
+	   
     	http.authorizeRequests().antMatchers("/").permitAll().anyRequest().authenticated()
     	.and().logout().permitAll().and().formLogin();
         //关闭默认的csrf认证

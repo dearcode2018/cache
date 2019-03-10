@@ -41,6 +41,7 @@ public class WebConfig implements WebMvcConfigurer {
     	/*
     	 * 静态资源访问
     	 */
+        registry.addResourceHandler("/favicon.ico").addResourceLocations("/favicon.ico");
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
         registry.addResourceHandler("/css/**").addResourceLocations("css/");
         registry.addResourceHandler("/img/**").addResourceLocations("img/");
