@@ -14,9 +14,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<com.hua.redis.version>0.0.1</com.hua.redis.version>
 		<cache.spring.version>0.0.1</cache.spring.version>
-		<spring.redis.version>1.5.0.RELEASE</spring.redis.version>
+		<spring.redis.version>2.2.0.RELEASE</spring.redis.version>
 		<!-- redis 2.7.2 和 spring-data-redis 1.5.0 结合有问题，使用2.6.2就可以 -->
-		<redis.version>2.6.2</redis.version>
+		<redis.version>3.1.0</redis.version>
 	</properties>
 
 	<dependencies>

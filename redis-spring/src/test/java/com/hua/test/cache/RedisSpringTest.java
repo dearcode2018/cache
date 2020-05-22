@@ -81,7 +81,6 @@ public final class RedisSpringTest extends BaseTest {
 			//String value = redisTemplate.boundValueOps(key).get();
 			System.out.println(redisTemplate.boundValueOps("_TEST_KEY_").get());
 			//System.out.println(value);
-			
 		} catch (Exception e) {
 			log.error("testRedisSpring =====> ", e);
 		}

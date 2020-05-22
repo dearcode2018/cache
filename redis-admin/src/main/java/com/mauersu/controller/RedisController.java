@@ -162,7 +162,7 @@ public class RedisController extends RedisApplication implements Constant{
 		request.setAttribute("showType", showType.getState());
 		request.setAttribute("pagination", pagination.createLinkTo());
 		request.setAttribute("viewPage", "redis/list.jsp");
-		return "admin/main";
+		return "static/view/a.txt";
 	}
 	
 	private Pagination stringListPagination(HttpServletRequest request, String queryKey, String queryKey_ch, String queryValue, String queryByKeyPrefixs) {

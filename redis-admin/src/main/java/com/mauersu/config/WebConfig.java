@@ -25,7 +25,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 /**
  * @author Jinkai.Ma
  */
-@Configuration
+//@Configuration
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
 	

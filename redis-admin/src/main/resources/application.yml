@@ -14,11 +14,11 @@ spring:
    # - /view/**
   mvc: 
     static-path-pattern: /static/**
-    #view:
-      #prefix: /view/
-      #suffix: .jsp
+    view:
+      prefix: /view/
+      suffix: .jsp
     favicon:
-      enabled: false
+      enabled: true
 
   autoconfigure:
     exclude:

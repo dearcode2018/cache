@@ -16,7 +16,7 @@
 	<!-- 打成基于SpringBoot的war 也可以执行运行
 		java -jar xx.war
 	 -->
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>redis-admin</name>
 	<description>redis admin</description>
 	

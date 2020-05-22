@@ -40,7 +40,7 @@ cd %redisHome%
 @ rem ----- 程序设计区
 
 redis-server %redisConfPath%
-
+pause
 @ rem pause
 
 @ rem

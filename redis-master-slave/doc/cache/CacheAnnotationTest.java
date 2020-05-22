@@ -1,6 +1,6 @@
 /**
  * 描述: 
- * CacheTest.java
+ * CacheAnnotationTest.java
  * 
  * @author qye.zheng
  *  version 1.0
@@ -20,20 +20,96 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import javax.annotation.Resource;
+
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import com.hua.ApplicationStarter;
+import com.hua.entity.User;
+import com.hua.service.CacheAnnotationService;
 import com.hua.test.BaseTest;
 
 
 /**
- * 描述: 缓存技术 - 测试
+ * 描述: 
  * 
  * @author qye.zheng
- * CacheTest
+ * CacheAnnotationTest
  */
-public final class CacheTest extends BaseTest {
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = {ApplicationStarter.class}, 
+webEnvironment = SpringBootTest.WebEnvironment.MOCK)
+//@MapperScan(basePackages = {"com.hua.mapper"})
+@ImportResource(locations = {"classpath:conf/xml/spring-cache.xml"})
+public class CacheAnnotationTest extends BaseTest {
 
+	@Resource
+	private CacheAnnotationService cacheAnnotationService;
+	
+	@Resource
+	private StringRedisTemplate stringRedisTemplate;
+	
+	//@Resource
+	//private RedisCacheManager redisCacheManager;
+	
+	/**
+	 * 
+	 * 描述: 
+	 * @author qye.zheng
+	 * 
+	 */
+	@Test
+	public void testCachePut() {
+		try {
+			User user = new User();
+			user.setId("201834758934795");
+			user.setUsername("效率第一");
+			cacheAnnotationService.add(user);
+			
+		} catch (Exception e) {
+			log.error("testCachePut =====> ", e);
+		}
+	}
+	
+	/**
+	 * 
+	 * 描述: 
+	 * @author qye.zheng
+	 * 
+	 */
+	@Test
+	public void testCacheable() {
+		try {
+			
+			
+		} catch (Exception e) {
+			log.error("testCacheable =====> ", e);
+		}
+	}
+	
+	
+	/**
+	 * 
+	 * 描述: 
+	 * @author qye.zheng
+	 * 
+	 */
+	@Test
+	public void testCacheManager() {
+		try {
+			
+			//System.out.println(redisCacheManager.toString());
+		} catch (Exception e) {
+			log.error("testCacheManager =====> ", e);
+		}
+	}
+	
 	/**
 	 * 
 	 * 描述: 
@@ -47,22 +123,6 @@ public final class CacheTest extends BaseTest {
 			
 		} catch (Exception e) {
 			log.error("test =====> ", e);
-		}
-	}
-	
-	/**
-	 * 
-	 * 描述: 
-	 * @author qye.zheng
-	 * 
-	 */
-	@Test
-	public void testCache() {
-		try {
-			
-			
-		} catch (Exception e) {
-			log.error("testCache =====> ", e);
 		}
 	}
 	

@@ -24,7 +24,8 @@
 		<module>memcached3</module>				
 		<module>redis</module>		
 		<module>redis-anno</module>
-		<module>redis-client</module>				
+		<module>redis-client</module>
+		<module>redis-master-slave</module>				
 		<module>redis-spring</module>	
 		<module>redis2</module>	
 		<module>redis-admin</module>			

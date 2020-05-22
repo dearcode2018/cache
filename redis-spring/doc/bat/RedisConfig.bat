@@ -22,7 +22,7 @@
 :: 指定redis home 目录
 set redisHome=D:\software\redis-2.8
 
-:: 指定redis 配置文件
+:: 指定redis 配置文件redis.conf
 set redisConfPath=redis.windows.conf
 
 :: 指定redis 服务器地址

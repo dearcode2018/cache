@@ -34,7 +34,7 @@ public class CacheObject implements Serializable
 	public CacheObject(String key, Object object)
 	{
 		// 设置一个超长失效日期时间
-		this(key, object, DateTimeUtil.stringToDate("2100-12-30", "yyyy-MM-dd"));
+		this(key, object, DateTimeUtil.autoParse("2100-12-30"));
 	}
 
 	/**

@@ -17,7 +17,14 @@ public class ConvertUtil {
 			DataType dateType = null;
 			switch(RedisApplication.showType) {
 			case show:
-				dateType = connection.type(byteArray);
+				try
+				{
+					dateType = connection.type(byteArray);
+				} catch (Exception e)
+				{
+					System.out.println("converted = " + converted);
+					e.printStackTrace();
+				}
 				break;
 			case hide:
 				dateType = DataType.NONE;
