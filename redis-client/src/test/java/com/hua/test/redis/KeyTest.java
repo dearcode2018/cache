@@ -30,6 +30,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import redis.clients.jedis.SortingParams;
+import redis.clients.jedis.params.SetParams;
 
 import com.hua.bean.User;
 import com.hua.test.BaseTest;
@@ -90,9 +91,11 @@ public final class KeyTest extends BaseTest {
 			//nxx = "XX";
 			// expx expire time units: EX = seconds; PX = milliseconds
 			String expx = "EX";
-			long time = 10000L;
-			//String statusCode = jedis.set(key, value, nxx, expx, time);
-			String statusCode = jedis.set(key.getBytes(), value.getBytes(), nxx.getBytes(), expx.getBytes(), time);
+			int time = 10000;
+			SetParams param = new SetParams();
+			param.nx().ex(time);
+			
+			String statusCode = jedis.set(key.getBytes(), value.getBytes(), param);
 			log.info("testAdd =====> statusCode = " + statusCode);
 			
 		} catch (Exception e) {

@@ -8,6 +8,9 @@ package com.hua.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hua.bean.RedisConfig;
+
+import lombok.Data;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -15,13 +18,12 @@ import redis.clients.jedis.JedisShardInfo;
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
 
-import com.hua.bean.RedisConfig;
-
 /**
  * RedisClient
  * 描述: Redis 客户端
  * @author  qye.zheng
  */
+@Data
 public final class RedisClient
 {
 
@@ -31,6 +33,7 @@ public final class RedisClient
 	/* 非切片连接池 */
 	private JedisPool jedisPool;
 	
+	/** 切片方式 */
 	/* 切片客户端连接 */
 	private ShardedJedis shardedJedis;
 	
@@ -93,39 +96,11 @@ public final class RedisClient
 		config.setTestOnBorrow(redisConfig.isTestOnBorrow());
 		
 		// slav 连接
-		final List<JedisShardInfo> shards = new ArrayList<JedisShardInfo>();
+		final List<JedisShardInfo> shards = new ArrayList<>();
 		JedisShardInfo jedisShardInfo = new JedisShardInfo(redisConfig.getHost(), redisConfig.getPort(), "master");
 		shards.add(jedisShardInfo);
 		
 		shardedJedisPool = new ShardedJedisPool(config, shards);
-	}
-
-	/**
-	 * @return the redisConfig
-	 */
-	public final RedisConfig getRedisConfig() {
-		return redisConfig;
-	}
-
-	/**
-	 * @param redisConfig the redisConfig to set
-	 */
-	public final void setRedisConfig(RedisConfig redisConfig) {
-		this.redisConfig = redisConfig;
-	}
-
-	/**
-	 * @return the jedis
-	 */
-	public final Jedis getJedis() {
-		return jedis;
-	}
-
-	/**
-	 * @return the shardedJedis
-	 */
-	public final ShardedJedis getShardedJedis() {
-		return shardedJedis;
 	}
 
 }

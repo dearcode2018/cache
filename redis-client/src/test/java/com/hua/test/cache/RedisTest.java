@@ -31,6 +31,8 @@ import com.hua.cache.CacheManager;
 import com.hua.test.BaseTest;
 import com.hua.util.JacksonUtil;
 
+import redis.clients.jedis.params.SetParams;
+
 
 /**
  * 描述: 
@@ -138,13 +140,15 @@ public final class RedisTest extends BaseTest {
 			 * NX: 不存在的时候才设置值
 			 * XX: 存在时才设置值
 			 */
-			String nxx = "NX";
+			//String nxx = "NX";
 			//nxx = "XX";
 			// expx expire time units: EX = seconds; PX = milliseconds
-			String expx = "EX";
-			long time = 10000L;
+			//String expx = "EX";
+			int time = 10000;
+			SetParams param = new SetParams();
+			param.nx().ex(time);
 			//String statusCode = jedis.set(key, value, nxx, expx, time);
-			String statusCode = jedis.set(key.getBytes(), value.getBytes(), nxx.getBytes(), expx.getBytes(), time);
+			String statusCode = jedis.set(key.getBytes(), value.getBytes(), param);
 			log.info("testAdd =====> statusCode = " + statusCode);
 			
 		} catch (Exception e) {

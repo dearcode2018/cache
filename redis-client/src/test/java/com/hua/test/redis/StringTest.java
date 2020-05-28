@@ -26,6 +26,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import redis.clients.jedis.BitOP;
+import redis.clients.jedis.params.SetParams;
 
 import com.hua.test.BaseTest;
 
@@ -413,8 +414,10 @@ public final class StringTest extends BaseTest {
 			String nxx = "NX";
 			// expx expire time units: EX = seconds; PX = milliseconds
 			String expx = "EX";
-			long time = 90000L;
-			String value = jedis.set(key, "hahha", nxx, expx, time);
+			int time = 10000;
+			SetParams param = new SetParams();
+			param.nx().ex(time);
+			String value = jedis.set(key, "hahha", param);
 			log.info("testGet =====> value = " + value);
 			
 		} catch (Exception e) {

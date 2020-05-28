@@ -25,12 +25,12 @@ import java.util.Date;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import redis.clients.jedis.BinaryClient.LIST_POSITION;
-
 import com.hua.bean.User;
 import com.hua.test.BaseTest;
 import com.hua.util.JacksonUtil;
 
+import redis.clients.jedis.ListPosition;
+import redis.clients.jedis.params.SetParams;
 
 /**
  * 描述: 
@@ -70,8 +70,10 @@ public final class AddTest extends BaseTest {
 			//nxx = "XX";
 			// expx expire time units: EX = seconds; PX = milliseconds
 			String expx = "EX";
-			long time = 10000L;
-			String statusCode = jedis.set(key, value, nxx, expx, time);
+			int time = 10000;
+			SetParams param = new SetParams();
+			param.nx().ex(time);
+			String statusCode = jedis.set(key, value, param);
 			log.info("testAdd =====> statusCode = " + statusCode);
 			
 		} catch (Exception e) {
@@ -135,8 +137,7 @@ public final class AddTest extends BaseTest {
 			index = 2L;
 			statusCode =	jedis.lpush(key, value);
 			log.info("testSetList =====> statusCode = " + statusCode);
-			
-			jedis.linsert(key, LIST_POSITION.AFTER, "", value);
+			jedis.linsert(key, ListPosition.AFTER, "", value);
 			
 		} catch (Exception e) {
 			log.error("testAddList =====> ", e);
@@ -314,12 +315,14 @@ public final class AddTest extends BaseTest {
 			 * NX: 不存在的时候才设置值
 			 * XX: 存在时才设置值
 			 */
-			String nxx = "NX";
+			//String nxx = "NX";
 			//nxx = "XX";
 			// expx expire time units: EX = seconds; PX = milliseconds
-			String expx = "EX";
-			long time = 100L;
-			String statusCode = jedis.set(key, value, nxx, expx, time);
+			//String expx = "EX";
+			int time = 10000;
+			SetParams param = new SetParams();
+			param.nx().ex(time);
+			String statusCode = jedis.set(key, value, param);
 			log.info("testAdd =====> statusCode = " + statusCode);
 			
 		} catch (Exception e) {
@@ -660,8 +663,11 @@ public final class AddTest extends BaseTest {
 			//nxx = "XX";
 			// expx expire time units: EX = seconds; PX = milliseconds
 			String expx = "EX";
-			long time = 100L;
-			String statusCode = jedis.set(key, value, nxx, expx, time);
+			int time = 10000;
+			SetParams param = new SetParams();
+			param.nx().ex(time);
+			
+			String statusCode = jedis.set(key, value, param);
 			log.info("testAdd =====> statusCode = " + statusCode);
 			
 		} catch (Exception e) {

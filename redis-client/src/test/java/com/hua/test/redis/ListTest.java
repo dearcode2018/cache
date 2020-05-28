@@ -25,11 +25,11 @@ import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import redis.clients.jedis.BinaryClient.LIST_POSITION;
-
 import com.hua.bean.User;
 import com.hua.test.BaseTest;
 import com.hua.util.JacksonUtil;
+
+import redis.clients.jedis.ListPosition;
 
 
 /**
@@ -207,7 +207,7 @@ public final class ListTest extends BaseTest {
 			String value = JacksonUtil.writeAsString(user);
 			String key = "COM:USERS";
 			// 之前或之后 插入，
-			jedis.linsert(key, LIST_POSITION.AFTER, "", value);
+			jedis.linsert(key, ListPosition.AFTER, "", value);
 			
 			
 		} catch (Exception e) {

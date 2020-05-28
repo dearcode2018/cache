@@ -13,7 +13,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<cache.version>0.0.1</cache.version>
-		<redis.version>2.7.2</redis.version>
+		<redis.version>3.3.0</redis.version>
 	</properties>
 
 	<dependencies>

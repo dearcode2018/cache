@@ -66,6 +66,16 @@ public class FirstRedisConfig
 	@Bean
 	public RedisConnectionFactory connectionFactory()
 	{
+		/**
+		 * RedisConfiguration实现
+		 * 1) RedisStandaloneConfiguration 单机
+		 * 2) RedisSocket 套接字
+		 * 3) RedisStaticMasterReplicaConfiguration 静态主从
+		 * 4) RedisSentinelConfiguration 哨兵
+		 * 5) RedisClusterConfiguration 集群
+		 * 
+		 * 
+		 */
 		final RedisStandaloneConfiguration re = new RedisStandaloneConfiguration();
 		re.setHostName(firstRedisProperties.getHost());
 		re.setPassword(firstRedisProperties.getPassword());
