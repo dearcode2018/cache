@@ -135,7 +135,7 @@ public class RedisConfiguration
 		 * 连接超时时间: 发起连接到连接成功，最大能容忍的时间
 		 * 读取超时时间: 连接期间，一次从开始读取到读取结束，最大能容忍的时间
 		 */
-		builder.connectTimeout(Duration.ofMillis(prop.getConnectTimeout())).readTimeout(Duration.ofMillis(prop.getReadTimeout()));
+		builder.connectTimeout(prop.getConnectTimeout()).readTimeout(prop.getReadTimeout());
 
 		return new JedisConnectionFactory(re, builder.build());
 	}
@@ -172,7 +172,7 @@ public class RedisConfiguration
 		poolConfig.setTestOnCreate(true);
 		builder.usePooling().poolConfig(poolConfig);
 		// 读取超时时间
-		builder.readTimeout(Duration.ofMillis(prop.getReadTimeout())).connectTimeout(Duration.ofMillis(prop.getConnectTimeout()));
+		builder.readTimeout(prop.getReadTimeout()).connectTimeout(prop.getConnectTimeout());
 
 		return new JedisConnectionFactory(re, builder.build());			
 	}
@@ -210,7 +210,7 @@ public class RedisConfiguration
 		poolConfig.setTestOnCreate(true);
 		builder.usePooling().poolConfig(poolConfig);
 		// 读取超时时间
-		builder.readTimeout(Duration.ofMillis(prop.getReadTimeout())).connectTimeout(Duration.ofMillis(prop.getConnectTimeout()));
+		builder.readTimeout(prop.getReadTimeout()).connectTimeout(prop.getConnectTimeout());
 
 		return new JedisConnectionFactory(re, builder.build());
 	}

@@ -6,6 +6,8 @@
  */
 package com.hua.configuration;
 
+import java.time.Duration;
+
 import lombok.Data;
 
 /**
@@ -30,10 +32,10 @@ public class RedisProperties
 	private Pool pool;
 	
 	/* 连接超时时间，单位: 毫秒 */
-	private Long connectTimeout;
+	private Duration connectTimeout;
 	
 	/* 读超时时间，单位: 毫秒 */
-	private Long readTimeout;
+	private Duration readTimeout;
 
 	/**
 	 * 
