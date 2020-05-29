@@ -14,8 +14,12 @@ package com.hua.entity;
 public enum UserType {
 
 	ADMIN(0, "管理员"),
+	
 	NORMAL(1, "普通用户"),
-	GUEST(2, "游客");
+	
+	GUEST(2, "游客"),
+	
+	UNKNOW(1000, "未知");
 	
 	private int type;
 	
@@ -40,24 +44,28 @@ public enum UserType {
 	}
 
 	/**
-	* @param type the type to set
-	*/
-	public void setType(int type) {
-		this.type = type;
-	}
-
-	/**
 	* @return the remark
 	*/
 	public String getRemark() {
 		return remark;
 	}
-
+	
 	/**
-	* @param remark the remark to set
-	*/
-	public void setRemark(String remark) {
-		this.remark = remark;
+	 * 
+	 * @description 
+	 * @param type
+	 * @return
+	 * @author qianye.zheng
+	 */
+	public static final UserType valueOf(final int type) {
+		final UserType[] types = values();
+		for (UserType e : types) {
+			if (e.getType() == type) {
+				return e;
+			}
+		}
+		
+		return UNKNOW;
 	}
 	
 }

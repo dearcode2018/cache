@@ -12,6 +12,8 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 
+import com.hua.configuration.CustomKeyspaceConfiguration;
+
  /**
  * @type ApplicationStarter
  * @description 应用启动器
@@ -32,7 +34,9 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 //@EnableCircuitBreaker
 //@EnableHystrixDashboard //
 //@EntityScan
-@EnableRedisRepositories
+// 不标注也可以正常使用
+// 指定全局命名空间
+@EnableRedisRepositories(keyspaceConfiguration = CustomKeyspaceConfiguration.class)
 public class ApplicationStarter
 {
 	

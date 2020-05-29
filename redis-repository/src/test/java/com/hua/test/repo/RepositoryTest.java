@@ -20,6 +20,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.junit.jupiter.api.AfterEach;
@@ -34,6 +38,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.hua.ApplicationStarter;
 import com.hua.entity.User;
+import com.hua.entity.UserType;
 import com.hua.repository.UserRepository;
 import com.hua.test.BaseTest;
 import com.hua.util.DateTimeUtil;
@@ -146,10 +151,21 @@ public final class RepositoryTest extends BaseTest {
 			entity.setUsername("zhangsan");
 			entity.setNickname("张三");
 			entity.setValid(true);
+			entity.setType(UserType.NORMAL);
 			entity.setLastLoginTime(DateTimeUtil.localDateTime());
+			User.Address address = new User.Address();
+			address.setProvince("广东省");
+			address.setCity("广州市");
+			address.setDetail("新港东路10号");
+			entity.setAddress(address);
+			entity.setRoles(Arrays.asList(1, 2, 4, 5, 0, 3));
+			Map<Integer, String> roleResource = new HashMap<>();
+			roleResource.put(10, "菜单1");
+			roleResource.put(12, "菜单3");
+			entity.setRoleResources(roleResource);
 			// 返回当前传入的参数，暂时无意义
 			User ret = userRepository.save(entity);
-			System.out.println(JacksonUtil.writeAsString(ret));
+			System.out.println(ret.getId());
 			
 		} catch (Exception e) {
 			log.error("test =====> ", e);
