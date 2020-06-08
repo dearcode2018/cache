@@ -25,13 +25,14 @@
 		<module>redis</module>		
 		<module>redis-anno</module>
 		<module>redis-client</module>
+		<module>redis-redisson</module>
 		<module>redis-lettuce</module>	
 		<module>redis-master-replica</module>
 		<module>redis-sentinel</module>
 		<module>redis-cluster</module>
 		<module>redis-repository</module>				
 		<module>redis-spring</module>
-		<module>redis2</module>	
+		<module>redis-spring-integration</module>
 		<module>redis-admin</module>			
 	</modules>
  

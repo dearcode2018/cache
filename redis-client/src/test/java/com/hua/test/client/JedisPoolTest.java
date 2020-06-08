@@ -57,7 +57,7 @@ import redis.clients.jedis.JedisPoolConfig;
 @ExtendWith(SpringExtension.class)
 //@WebAppConfiguration(value = "src/main/webapp")
 @SpringBootTest(classes = {ApplicationStarter.class}, 
-webEnvironment = SpringBootTest.WebEnvironment.MOCK)
+webEnvironment = SpringBootTest.WebEnvironment.NONE)
 //@MapperScan(basePackages = {"com.hua.mapper"})
 public final class JedisPoolTest extends BaseTest {
 
