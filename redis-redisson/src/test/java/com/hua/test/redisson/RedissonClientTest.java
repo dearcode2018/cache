@@ -39,6 +39,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.hua.ApplicationStarter;
+import com.hua.annotation.OneAnnotation;
 import com.hua.test.BaseTest;
 
 
@@ -266,7 +267,7 @@ public final class RedissonClientTest extends BaseTest {
 	@Test
 	public void testTemp() {
 		try {
-			
+			Class<?> clazz = OneAnnotation.A.class;
 			
 		} catch (Exception e) {
 			log.error("testTemp=====> ", e);

@@ -21,7 +21,7 @@
 		<!-- 覆盖spring boot的版本 -->
 		<jedis.version>3.3.0</jedis.version>
 		<cache.version>0.0.1</cache.version>
-		<redisson.version>3.13.0</redisson.version>
+		<redisson.version>3.13.5</redisson.version>
 	</properties>
 
 	<!-- 使用spring boot 构建插件 运行: mvn spring-boot:run -->
