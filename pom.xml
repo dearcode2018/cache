@@ -1,46 +1,42 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.hua</groupId>
-  <artifactId>cache-entire</artifactId>
-  <version>0.0.1</version>
-  <packaging>pom</packaging>
-  <name>cache-entire</name>
-  <description>cache Maven Entire Project</description>
-  
-  	<!-- 模块-子项目 -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.hua</groupId>
+	<artifactId>cache-entire</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+	<name>cache-entire</name>
+	<description>cache Maven Entire Project</description>
+
+	<!-- 模块-子项目 -->
 	<modules>
 		<!-- 模板 -->
-		<module>cache-template</module>		
-		<module>cache</module>		
-		<module>cache-spring</module>
-		<module>codis</module>
-		<module>ehcache</module>		
-		<module>ehcache3_0_0_Alpha</module>
-		<module>ehcache-spring</module>		
-		<module>guava-cache</module>		
-		<module>memcached</module>		
-		<module>memcached-dayatang</module>		
-		<module>memcached-spring</module>		
-		<module>memcached3</module>				
-		<module>redis</module>		
+		<module>cache-template</module>
+		<module>cache-core</module>
+		<module>ehcache</module>
+		<module>ehcache-spring</module>
+		<module>guava-cache</module>
+		<module>memcached</module>
+		<module>memcached-spring</module>
+		<module>redis</module>
 		<module>redis-anno</module>
 		<module>redis-client</module>
 		<module>redis-redisson</module>
-		<module>redis-lettuce</module>	
+		<module>redis-lettuce</module>
 		<module>redis-master-replica</module>
 		<module>redis-sentinel</module>
 		<module>redis-cluster</module>
-		<module>redis-repository</module>				
+		<module>redis-repository</module>
 		<module>redis-spring</module>
 		<module>redis-spring-integration</module>
-		<module>redis-admin</module>			
 	</modules>
- 
+
 	<!-- 公共属性 -->
 	<properties>
 		<jdk.version>1.8</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.version>0.0.1</maven.version>
+		<maven.version>1.0.0</maven.version>
 		<maven.plugin.compiler.version>3.3</maven.plugin.compiler.version>
 		<maven.plugin.source.version>2.4</maven.plugin.source.version>
 		<maven.plugin.surefire.version>2.18.1</maven.plugin.surefire.version>
@@ -48,15 +44,136 @@
 		<maven.plugin.resources.version>2.7</maven.plugin.resources.version>
 		<maven.plugin.dependency.version>2.10</maven.plugin.dependency.version>
 		<maven.plugin.war.version>3.0</maven.plugin.war.version>
-		<cache.version>0.0.1</cache.version>		
-		<redis.version>3.3.0</redis.version>		
-		<common.version>0.0.1</common.version>
+		<cache.version>1.0.0</cache.version>
+		<redis.version>3.3.0</redis.version>
+		<common.version>1.0.0</common.version>
 		<javax.cache.version>1.0.0</javax.cache.version>
-		<jackson.version>2.6.0-rc3</jackson.version>			
-	</properties>  
-  
-  
- 	<!-- 公共构建 -->
+		<jackson.version>2.6.0-rc3</jackson.version>
+		<cache-core.version>1.0.0</cache-core.version>
+		<!-- spring -->
+		<spring.version>5.0.9.RELEASE</spring.version>
+		<ehcache.version>3.5.2</ehcache.version>
+		<ehcache-sf.version>2.10.0</ehcache-sf.version>
+		<spring.redis.version>2.4.3</spring.redis.version>
+		<redis.version>2.9.0</redis.version>
+		<com.hua.redis.version>1.0.0</com.hua.redis.version>		
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>redis.clients</groupId>
+				<artifactId>jedis</artifactId>
+				<version>${redis.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.hua</groupId>
+				<artifactId>common</artifactId>
+				<version>${common.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.cache</groupId>
+				<artifactId>cache-api</artifactId>
+				<version>${javax.cache.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-annotations</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.hua</groupId>
+				<artifactId>cache-core</artifactId>
+				<version>${cache.version}</version>
+			</dependency>
+
+			<!-- spring -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-beans</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context-support</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aop</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aspects</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<!-- ehcache -->
+			<dependency>
+				<groupId>org.ehcache</groupId>
+				<artifactId>ehcache</artifactId>
+				<version>${ehcache.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>net.sf.ehcache</groupId>
+				<artifactId>ehcache</artifactId>
+				<version>${ehcache-sf.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-redis</artifactId>
+				<version>${spring.redis.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.hua</groupId>
+				<artifactId>redis</artifactId>
+				<version>${com.hua.redis.version}</version>
+			</dependency>			
+		</dependencies>
+	</dependencyManagement>
+
+	<!-- 公共构建 -->
 	<build>
 		<plugins>
 
@@ -146,56 +263,23 @@
 				</configuration>
 			</plugin>
 
-			<!-- 解决 web项目pom.xml报错 -->
+			<!-- 要将源码放上去，需要加入这个插件 -->
 			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
+				<artifactId>maven-source-plugin</artifactId>
 				<configuration>
-					<version>${maven.plugin.war.version}</version>
+					<attach>true</attach>
 				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
 		</plugins>
 	</build>
-	
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>redis.clients</groupId>
-				<artifactId>jedis</artifactId>
-				<version>${redis.version}</version>
-			</dependency>	
-			
-		<dependency>
-			<groupId>com.hua</groupId>
-			<artifactId>common</artifactId>
-			<version>${common.version}</version>
-		</dependency>
 
-		<dependency>
-			<groupId>javax.cache</groupId>
-			<artifactId>cache-api</artifactId>
-			<version>${javax.cache.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-core</artifactId>
-			<version>${jackson.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>${jackson.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-annotations</artifactId>
-			<version>${jackson.version}</version>
-		</dependency>				
-				
-		</dependencies>		
-	</dependencyManagement>
-	
 </project>

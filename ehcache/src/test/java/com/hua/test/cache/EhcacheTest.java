@@ -33,6 +33,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.hua.cache.CustomExpiry;
+import com.hua.cache.EhcacheService;
 import com.hua.test.BaseTest;
 
 
@@ -44,6 +45,108 @@ import com.hua.test.BaseTest;
  */
 public final class EhcacheTest extends BaseTest {
 
+    /**
+     * 
+     * 描述: 
+     * @author qye.zheng
+     * 
+     */
+    @Test
+    public void testAccessExpire() {
+        try {
+            
+            String key = "a_test_001";
+            EhcacheService.put(key, "12344556");
+            
+            log.info("testExpire =====> " + EhcacheService.contain(key));
+            /*
+             * 调用contain方法并不会刷新缓存时间
+             */
+            while (EhcacheService.contain(key))
+            {
+                Thread.sleep(30 * 1000);
+                log.info("testExpire =====> ");
+            }
+            log.info("testExpire =====> " + EhcacheService.contain(key));
+            
+        } catch (Exception e) {
+            log.error("testExpire =====> ", e);
+        }
+    }
+    
+    /**
+     * 
+     * 描述: 
+     * @author qye.zheng
+     * 
+     */
+    @Test
+    public void testAccessExpire2() {
+        try {
+            
+            String key = "a_test_001";
+            EhcacheService.put(key, "12344556");
+            
+            log.info("testExpire =====> " + EhcacheService.contain(key));
+            
+            while (null != EhcacheService.get(key))
+            {
+                Thread.sleep(30 * 1000);
+                log.info("testExpire =====> ");
+            }
+            log.info("testExpire =====> " + EhcacheService.contain(key));
+            
+        } catch (Exception e) {
+            log.error("testAccessExpire2 =====> ", e);
+        }
+    }
+    
+    /**
+     * 
+     * 描述: 
+     * @author qye.zheng
+     * 
+     */
+    @Test
+    public void testExpire() {
+        try {
+            
+            String key = "a_test_001";
+            EhcacheService.put(key, "12344556");
+            
+            log.info("testExpire =====> " + EhcacheService.contain(key));
+            
+            // 断点
+            log.info("testExpire =====> ");
+            
+            log.info("testExpire =====> " + EhcacheService.contain(key));
+            
+        } catch (Exception e) {
+            log.error("testExpire =====> ", e);
+        }
+    }
+    
+    /**
+     * 
+     * 描述: 
+     * @author qye.zheng
+     * 
+     */
+    @Test
+    public void testEhcacheService() {
+        try {
+            
+            EhcacheService.put("year", "2018");
+            
+            
+            log.info("testEhcacheService =====> " + EhcacheService.get("year"));
+            
+        } catch (Exception e) {
+            log.error("tesEhcacheServicet =====> ", e);
+        }
+    }
+    
+    
 	/**
 	 * 
 	 * 描述: 

@@ -5,44 +5,66 @@
 	<parent>
 		<groupId>com.hua</groupId>
 		<artifactId>cache-entire</artifactId>
-		<version>0.0.1</version>
+		<version>1.0.0</version>
 	</parent>	
 	<artifactId>redis-spring</artifactId>
 	<packaging>jar</packaging>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<com.hua.redis.version>0.0.1</com.hua.redis.version>
-		<cache.spring.version>0.0.1</cache.spring.version>
-		<spring.redis.version>2.2.0.RELEASE</spring.redis.version>
-		<!-- redis 2.7.2 和 spring-data-redis 1.5.0 结合有问题，使用2.6.2就可以 -->
-		<redis.version>3.1.0</redis.version>
+
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.hua</groupId>
 			<artifactId>redis</artifactId>
-			<version>${com.hua.redis.version}</version>
 		</dependency>
-
-		<dependency>
-			<groupId>com.hua</groupId>
-			<artifactId>cache-spring</artifactId>
-			<version>${cache.spring.version}</version>
-		</dependency>	
 		
 		<!-- cache: redis -->
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
-			<version>${redis.version}</version>
 		</dependency>
+
+		<!-- spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>		
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>	
 		
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-redis</artifactId>
-			<version>${spring.redis.version}</version>
 		</dependency>	
 		
 	</dependencies>

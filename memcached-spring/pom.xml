@@ -5,15 +5,15 @@
 	<parent>
 		<groupId>com.hua</groupId>
 		<artifactId>cache-entire</artifactId>
-		<version>0.0.1</version>
+		<version>1.0.0</version>
 	</parent>	
 	<artifactId>memcached-spring</artifactId>
 	<packaging>jar</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<cache.version>0.0.1</cache.version>
-		<cache.spring.version>0.0.1</cache.spring.version>
+		<cache.version>1.0.0</cache.version>
+		<cache.spring.version>1.0.0</cache.spring.version>
 	</properties>
 
 	<dependencies>
@@ -25,8 +25,7 @@
 
 		<dependency>
 			<groupId>com.hua</groupId>
-			<artifactId>cache-spring</artifactId>
-			<version>${cache.spring.version}</version>
+			<artifactId>cache-core</artifactId>
 		</dependency>
 		
 	</dependencies>

@@ -17,10 +17,10 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<com.hua.redis.version>0.0.1</com.hua.redis.version>
+		<com.hua.redis.version>1.0.0</com.hua.redis.version>
 		<!-- 覆盖spring boot的版本 -->
 		<jedis.version>3.3.0</jedis.version>
-		<cache.version>0.0.1</cache.version>
+		<cache.version>1.0.0</cache.version>
 		<redisson.version>3.13.5</redisson.version>
 	</properties>
 

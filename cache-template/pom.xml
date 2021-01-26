@@ -4,22 +4,20 @@
 	<parent>
 		<groupId>com.hua</groupId>
 		<artifactId>cache-entire</artifactId>
-		<version>0.0.1</version>
+		<version>1.0.0</version>
 	</parent>	
 	<artifactId>cache-template</artifactId>
 	<name>cache-template</name>
 	<packaging>jar</packaging>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<cache.version>0.0.1</cache.version>
+
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.hua</groupId>
-			<artifactId>cache</artifactId>
-			<version>${cache.version}</version>
+			<artifactId>cache-core</artifactId>
 		</dependency>
 			
 	</dependencies>
