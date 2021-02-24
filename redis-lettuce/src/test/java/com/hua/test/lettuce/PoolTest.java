@@ -138,7 +138,8 @@ public final class PoolTest extends BaseTest {
 			
 			GenericObjectPoolConfig<String> config = new GenericObjectPoolConfig<>();
 			BeanUtil.copyProperties(config, redisProperties.getPool());
-			GenericObjectPool<StatefulRedisConnection<String, String>> pool = ConnectionPoolSupport.createGenericObjectPool(client :: connect, config);
+			GenericObjectPool<StatefulRedisConnection<String, String>> pool = null;
+			//GenericObjectPool<StatefulRedisConnection<String, String>> pool = ConnectionPoolSupport.createGenericObjectPool(client :: connect, config);
 			try (StatefulRedisConnection<String, String> connection = pool.borrowObject()) {
 				// 非单点模式下，可设置读取偏好
 				// StatefulRedisMasterSlaveConnection.setReadFrom(ReadFrom)

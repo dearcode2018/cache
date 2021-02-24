@@ -55,8 +55,10 @@
 		<ehcache.version>3.5.2</ehcache.version>
 		<ehcache-sf.version>2.10.0</ehcache-sf.version>
 		<spring.redis.version>2.4.3</spring.redis.version>
-		<redis.version>2.9.0</redis.version>
+		<redis.version>3.5.1</redis.version>
 		<com.hua.redis.version>1.0.0</com.hua.redis.version>		
+		<spring-boot.version>2.3.5.RELEASE</spring-boot.version>	
+		<redisson.version>3.13.5</redisson.version>			
 	</properties>
 
 	<dependencyManagement>
@@ -169,7 +171,22 @@
 				<groupId>com.hua</groupId>
 				<artifactId>redis</artifactId>
 				<version>${com.hua.redis.version}</version>
-			</dependency>			
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+
+			<dependency>
+				<groupId>org.redisson</groupId>
+				<artifactId>redisson</artifactId>
+				<version>${redisson.version}</version>
+			</dependency>
+					
 		</dependencies>
 	</dependencyManagement>
 

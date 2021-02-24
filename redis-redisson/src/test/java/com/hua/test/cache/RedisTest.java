@@ -7,24 +7,31 @@
  */
 package com.hua.test.cache;
 
-// 静态导入
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+//静态导入
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.api.Assumptions.assumingThat;
+import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
 import java.util.Calendar;
 import java.util.Date;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 import com.hua.bean.User;
 import com.hua.cache.CacheManager;
@@ -40,9 +47,13 @@ import redis.clients.jedis.params.SetParams;
  * @author qye.zheng
  * RedisTest
  */
+//@DisplayName("测试类名称")
+//@Tag("测试类标签")
+//@Tags({@Tag("测试类标签1"), @Tag("测试类标签2")})
 public final class RedisTest extends BaseTest {
 
-	private CacheManager cacheManager = CacheManager.getInstance();
+	
+private CacheManager cacheManager = CacheManager.getInstance();
 	
 	private String key = "r_test_1";
 	
@@ -214,6 +225,7 @@ public final class RedisTest extends BaseTest {
 	 * @author qye.zheng
 	 * 
 	 */
+	//@DisplayName("test")
 	@Test
 	public void test() {
 		try {
@@ -230,6 +242,7 @@ public final class RedisTest extends BaseTest {
 	 * @author qye.zheng
 	 * 
 	 */
+	@DisplayName("testTemp")
 	@Test
 	public void testTemp() {
 		try {
@@ -246,6 +259,7 @@ public final class RedisTest extends BaseTest {
 	 * @author qye.zheng
 	 * 
 	 */
+	@DisplayName("testCommon")
 	@Test
 	public void testCommon() {
 		try {
@@ -262,6 +276,7 @@ public final class RedisTest extends BaseTest {
 	 * @author qye.zheng
 	 * 
 	 */
+	@DisplayName("testSimple")
 	@Test
 	public void testSimple() {
 		try {
@@ -278,6 +293,7 @@ public final class RedisTest extends BaseTest {
 	 * @author qye.zheng
 	 * 
 	 */
+	@DisplayName("testBase")
 	@Test
 	public void testBase() {
 		try {
@@ -290,11 +306,51 @@ public final class RedisTest extends BaseTest {
 	
 	/**
 	 * 
+	 * 描述: [每个测试-方法]开始之前运行
+	 * @author qye.zheng
+	 * 
+	 */
+	@DisplayName("beforeMethod")
+	@Tag(" [每个测试-方法]结束之后运行")
+	@BeforeEach
+	public void beforeMethod() {
+		System.out.println("beforeMethod()");
+	}
+	
+	/**
+	 * 
+	 * 描述: [每个测试-方法]结束之后运行
+	 * @author qye.zheng
+	 * 
+	 */
+	@DisplayName("afterMethod")
+	@Tag(" [每个测试-方法]结束之后运行")
+	@AfterEach
+	public void afterMethod() {
+		System.out.println("afterMethod()");
+	}
+	
+	/**
+	 * 
+	 * 描述: 测试忽略的方法
+	 * @author qye.zheng
+	 * 
+	 */
+	@Disabled
+	@DisplayName("ignoreMethod")
+	@Test
+	public void ignoreMethod() {
+		System.out.println("ignoreMethod()");
+	}
+	
+	/**
+	 * 
 	 * 描述: 解决ide静态导入消除问题 
 	 * @author qye.zheng
 	 * 
 	 */
-	@Ignore("解决ide静态导入消除问题 ")
+	@DisplayName("noUse")
+	@Disabled("解决ide静态导入消除问题 ")
 	private void noUse() {
 		String expected = null;
 		String actual = null;
@@ -308,29 +364,31 @@ public final class RedisTest extends BaseTest {
 		assertNotEquals(message, expected, actual);
 		
 		assertArrayEquals(expecteds, actuals);
-		assertArrayEquals(message, expecteds, actuals);
+		assertArrayEquals(expecteds, actuals, message);
 		
 		assertFalse(true);
 		assertTrue(true);
-		assertFalse(message, true);
-		assertTrue(message, true);
+		assertFalse(true, message);
+		assertTrue(true, message);
 		
 		assertSame(expecteds, actuals);
 		assertNotSame(expecteds, actuals);
-		assertSame(message, expecteds, actuals);
-		assertNotSame(message, expecteds, actuals);
+		assertSame(expecteds, actuals, message);
+		assertNotSame(expecteds, actuals, message);
 		
 		assertNull(actuals);
 		assertNotNull(actuals);
-		assertNull(message, actuals);
-		assertNotNull(message, actuals);
-		
-		assertThat(null, null);
-		assertThat(null, null, null);
+		assertNull(actuals, message);
+		assertNotNull(actuals, message);
 		
 		fail();
 		fail("Not yet implemented");
 		
+		dynamicTest(null, null);
+		
+		assumeFalse(false);
+		assumeTrue(true);
+		assumingThat(true, null);
 	}
 
 }
