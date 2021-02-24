@@ -51,7 +51,7 @@
 		<jackson.version>2.6.0-rc3</jackson.version>
 		<cache-core.version>1.0.0</cache-core.version>
 		<!-- spring -->
-		<spring.version>5.0.9.RELEASE</spring.version>
+		<spring.version>5.3.3</spring.version>
 		<ehcache.version>3.5.2</ehcache.version>
 		<ehcache-sf.version>2.10.0</ehcache-sf.version>
 		<spring.redis.version>2.4.3</spring.redis.version>
